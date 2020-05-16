@@ -11,12 +11,17 @@ export default class ContactView {
                     ${this.contactModel.name}
                 </td>
                 <td>
-                    ${this.contactModel.number}
+                    ${this.numbersToHtml(this.contactModel.numbers)}
                 </td>
                 <td>
-                    <button data-id="${this.contactModel.id}" class="del-button">Delete</button>
-                    <button data-id="${this.contactModel.id}" class="edit-button">Edit</button>
+                    <button data-id="${this.contactModel.id}" class="add-number-button">Add number</button>
+                    <button data-id="${this.contactModel.id}" class="edit-button">Edit</button>    
+                    <button data-id="${this.contactModel.id}" class="delete-button">Delete</button>
                 </td>
             </tr>`;
+    }
+
+    numbersToHtml(numbers) {
+        return Array.prototype.join.call(numbers, "<br>");
     }
 }

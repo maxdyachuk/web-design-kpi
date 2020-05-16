@@ -18,7 +18,12 @@ export default class ContactListModel {
     update(contactId, name, number) {
         const contactIndex = this.contacts.findIndex( (contact) => contact.id === contactId);
         this.contacts[contactIndex].name = name;
-        this.contacts[contactIndex].number = number;
+        this.contacts[contactIndex].numbers = [number];
+    }
+
+    addNumber(contactId, number) {
+        const contactIndex = this.contacts.findIndex( (contact) => contact.id === contactId);
+        this.contacts[contactIndex].addNumber(number);
     }
 
     setOnChangeCallback(onChangeCallback) {

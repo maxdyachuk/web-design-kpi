@@ -3,12 +3,16 @@ export default class Contact {
     constructor(name, number) {
         this.id = Math.round(Math.random() * 100000).toString();
         this.name = name;
-        this.number = number;
+        this.numbers = [number];
 
         this.onChangeCallback = null;
         return this.initOnModelChange();
     }
 
+    addNumber(number) {
+        this.numbers.push(number);
+        this.numbers = this.numbers;
+    }
     
     setOnChangeCallback() {
         this.onChangeCallback = onChangeCallback;

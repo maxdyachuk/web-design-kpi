@@ -5,8 +5,9 @@ export default class ContactListView {
     constructor(contactListModel) {
         this.contactListModel = contactListModel;
         this.controllerOnAddContact = null;
-        this.controllerOnDelContact = null;
+        this.controllerOnDeleteContact = null;
         this.controllerOnEditContact = null;
+        this.controllerOnAddNumber = null;
         document.querySelector('#contacts').addEventListener('click', (e) => this.onClick(e)); // 'this' changes
     }
 
@@ -14,23 +15,29 @@ export default class ContactListView {
         this.controllerOnAddContact = controllerOnAddContact;
     }
 
-    setControllerOnDelContact(controllerOnDelContact) {
-        this.controllerOnDelContact = controllerOnDelContact;
+    setControllerOnDeleteContact(controllerOnDeleteContact) {
+        this.controllerOnDeleteContact = controllerOnDeleteContact;
     }
 
     setControllerOnEditContact(controllerOnEditContact) {
         this.controllerOnEditContact = controllerOnEditContact;
     }
 
+    setControllerOnAddNumber(controllerOnAddNumber) {
+        this.controllerOnAddNumber = controllerOnAddNumber;
+    }
+
     onClick(e) {
-        if (e.target.className === 'del-button') {
-            this.controllerOnDelContact(e.target.dataset.id);
+        if (e.target.className === 'delete-button') {
+            this.controllerOnDeleteContact(e.target.dataset.id);
             return;
-        } 
-        if (e.target.className === 'edit-button') {
+        } else if (e.target.className === 'edit-button') {
             const name = prompt('Enter name:', '');
             const number = prompt('Enter number:', '');
             this.controllerOnEditContact(e.target.dataset.id, name, number);
+        } else if (e.target.className === 'add-number-button') {
+            const number = prompt('Enter number:', '');
+            this.controllerOnAddNumber(e.target.dataset.id, number);
         }
     }
 
@@ -45,6 +52,6 @@ export default class ContactListView {
             const contactView = new ContactView(contact);
             return contactView.toHtml();
         }).join("");
-        return `<table border="1"><tr><th>Name</th><th>Number</th><th>Operations</th></tr>${contactsHtml}</table>`;
+        return `<table border="1"><tr><th>Name</th><th>Numbers</th><th>Operations</th></tr>${contactsHtml}</table>`;
     }
 }

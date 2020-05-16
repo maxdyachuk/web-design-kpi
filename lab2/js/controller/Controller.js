@@ -6,14 +6,14 @@ export default class Controller {
         this.contactListView = contactListView;
         this.contactListModel.setOnChangeCallback((e) => this.onChangeCallback(e));
         this.contactListView.setControllerOnAddContact(this.addContact);
-        this.contactListView.setControllerOnDelContact(this.delContact);
+        this.contactListView.setControllerOnDeleteContact(this.deleteContact);
         this.contactListView.setControllerOnEditContact(this.editContact);
+        this.contactListView.setControllerOnAddNumber(this.addNumber);
         this.initOnModelChange();
         document.querySelector('#add-contact').addEventListener('click', (e)=>contactListView.onAddContact(e));
     }
 
     onChangeCallback() {
-        /* updates UI when a model has changed (title, done attributes) */
         document.querySelector('#contacts').innerHTML = this.contactListView.toHtml();
     }
 
@@ -22,7 +22,7 @@ export default class Controller {
         this.contactListModel.add(contact);
     }
 
-    delContact(id) { 
+    deleteContact(id) { 
         this.contactListModel.delete(id);
     }
 
@@ -30,8 +30,11 @@ export default class Controller {
         this.contactListModel.update(id, name, number);
     }
 
+    addNumber(id, number) {
+        this.contactListModel.addNumber(id, number);
+    }
+
     initOnModelChange() {
-        /* updates UI when a model list has changed (adds, deletes items) */
         let handler = {
             set: (obj, prop, val) => {
                 obj[prop] = val;
