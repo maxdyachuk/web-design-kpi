@@ -8,7 +8,7 @@ export default class ContactView {
         return `
             <tr>
                 <td>
-                    ${this.contactModel.name}
+                    ${this.nameToBoldFirstLetter(this.contactModel.name)}
                 </td>
                 <td>
                     ${this.numbersToHtml(this.contactModel.numbers)}
@@ -21,7 +21,11 @@ export default class ContactView {
             </tr>`;
     }
 
+    nameToBoldFirstLetter(name) {
+        return '<b>' + name.charAt(0) + '</b>' + name.substr(1);
+    } 
+
     numbersToHtml(numbers) {
-        return Array.prototype.join.call(numbers, "<br>");
+        return Array.prototype.join.call(numbers, ",<br>");
     }
 }

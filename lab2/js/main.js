@@ -9,4 +9,3 @@ let controller = new Controller(contactListModel, contactListView);
 
 controller.addContact('John Smith', '1234');
 controller.addContact('Adam Cooper', '5678');
-

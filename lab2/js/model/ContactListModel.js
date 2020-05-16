@@ -8,6 +8,7 @@ export default class ContactListModel {
     add(contact) {
         contact.onChangeCallback = this.onChangeCallback;
         this.contacts.push(contact);
+        this.sort();
     }
 
     delete(contactId) {
@@ -19,11 +20,20 @@ export default class ContactListModel {
         const contactIndex = this.contacts.findIndex( (contact) => contact.id === contactId);
         this.contacts[contactIndex].name = name;
         this.contacts[contactIndex].numbers = [number];
+        this.sort();
     }
 
     addNumber(contactId, number) {
         const contactIndex = this.contacts.findIndex( (contact) => contact.id === contactId);
         this.contacts[contactIndex].addNumber(number);
+    }
+
+    sort() {
+        this.contacts = this.contacts.sort(function(a, b){
+            if(a.name < b.name) { return -1; }
+            if(a.name > b.name) { return 1; }
+            return 0;
+        });
     }
 
     setOnChangeCallback(onChangeCallback) {
