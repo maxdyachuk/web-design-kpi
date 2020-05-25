@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/contacts")
+@CrossOrigin("http://localhost:4200")
 public class ContactsController {
 
     private final ContactsService service;
@@ -39,5 +40,16 @@ public class ContactsController {
         return service.update(id, dto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        service.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleExceptions(Exception e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }
