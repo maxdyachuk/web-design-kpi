@@ -50,4 +50,9 @@ public class ContactsService {
                 .map(repository::save)
                 .map(ContactDto::new);
     }
+
+    @Transactional
+    public void delete(long id) {
+        repository.deleteById(id);
+    }
 }
